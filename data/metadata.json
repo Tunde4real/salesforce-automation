@@ -1,0 +1,218 @@
+{
+    "Rows" : 14752,
+    "Columns" : {
+        "lenght" : 100,
+        "fields" : {
+            "CMS Certification Number (CCN)" : "text",
+            "Provider Name" : "text",
+            "Provider Address" : "text",
+            "City/Town" : "text",
+            "State" : "text",
+            "ZIP Code" : "num",
+            "Telephone Number" : "num",
+            "Provider SSA County Code" : "num{3}",
+            "County/Parish" : "text",
+            "Ownership Type" : "text",
+            "Number of Certified Beds" : "num",
+            "Average Number of Residents per Day" : "num",
+            "Average Number of Residents per Day Footnote" : "text",
+            "Provider Type" : "text",
+            "Provider Resides in Hospital" : "text(Y/N)",
+            "Legal Business Name" : "text",
+            "Date First Approved to Provide Medicare and Medicaid Services" : "date",
+            "Chain Name" : "text",
+            "Chain ID" : "num",
+            "Number of Facilities in Chain" : "num",
+            "Chain Average Overall 5-star Rating" : "num",
+            "Chain Average Health Inspection Rating" : "num",
+            "Chain Average Staffing Rating" : "num",
+            "Chain Average QM Rating" : "num",
+            "Continuing Care Retirement Community" : "text(Y/N)",
+            "Special Focus Status" : "text",
+            "Abuse Icon" : "text(Y/N)",
+            "Most Recent Health Inspection More Than 2 Years Ago" : "text(Y/N)",
+            "Provider Changed Ownership in Last 12 Months" : "text(Y/N)",
+            "With a Resident and Family Council" : "text",
+            "Automatic Sprinkler Systems in All Required Areas" : "text",
+            "Overall Rating" : "num",
+            "Overall Rating Footnote" : "text",
+            "Health Inspection Rating" : "num",
+            "Health Inspection Rating Footnote" : "text",
+            "QM Rating" : "num",
+            "QM Rating Footnote" : "text",
+            "Long-Stay QM Rating" : "num",
+            "Long-Stay QM Rating Footnote" : "text",
+            "Short-Stay QM Rating" : "num",
+            "Short-Stay QM Rating Footnote" : "text",
+            "Staffing Rating" : "num",
+            "Staffing Rating Footnote" : "text",
+            "Reported Staffing Footnote" : "text",
+            "Physical Therapist Staffing Footnote" : "text",
+            "Reported Nurse Aide Staffing Hours per Resident per Day" : "num",
+            "Reported LPN Staffing Hours per Resident per Day" : "num",
+            "Reported RN Staffing Hours per Resident per Day" : "num",
+            "Reported Licensed Staffing Hours per Resident per Day" : "num",
+            "Reported Total Nurse Staffing Hours per Resident per Day" : "num",
+            "Total number of nurse staff hours per resident per day on the weekend" : "num",
+            "Registered Nurse hours per resident per day on the weekend" : "num",
+            "Reported Physical Therapist Staffing Hours per Resident Per Day" : "num",
+            "Total nursing staff turnover" : "num",
+            "Total nursing staff turnover footnote" : "text",
+            "Registered Nurse turnover" : "num",
+            "Registered Nurse turnover footnote" : "text",
+            "Number of administrators who have left the nursing home" : "num",
+            "Administrator turnover footnote" : "text",
+            "Nursing Case-Mix Index" : "num",
+            "Nursing Case-Mix Index Ratio" : "num",
+            "Case-Mix Nurse Aide Staffing Hours per Resident per Day" : "num",
+            "Case-Mix LPN Staffing Hours per Resident per Day" : "num",
+            "Case-Mix RN Staffing Hours per Resident per Day" : "num",
+            "Case-Mix Total Nurse Staffing Hours per Resident per Day" : "num",
+            "Case-Mix Weekend Total Nurse Staffing Hours per Resident per Day" : "num",
+            "Adjusted Nurse Aide Staffing Hours per Resident per Day" : "num",
+            "Adjusted LPN Staffing Hours per Resident per Day" : "num",
+            "Adjusted RN Staffing Hours per Resident per Day" : "num",
+            "Adjusted Total Nurse Staffing Hours per Resident per Day" : "num",
+            "Adjusted Weekend Total Nurse Staffing Hours per Resident per Day" : "num",
+            "Rating Cycle 1 Standard Survey Health Date" : "date",
+            "Rating Cycle 1 Total Number of Health Deficiencies" : "num",
+            "Rating Cycle 1 Number of Standard Health Deficiencies" : "num",
+            "Rating Cycle 1 Number of Complaint Health Deficiencies" : "num",
+            "Rating Cycle 1 Health Deficiency Score" : "num",
+            "Rating Cycle 1 Number of Health Revisits" : "num",
+            "Rating Cycle 1 Health Revisit Score" : "num",
+            "Rating Cycle 1 Total Health Score" : "num",
+            "Rating Cycle 2 Standard Health Survey Date" : "date",
+            "Rating Cycle 2/3 Total Number of Health Deficiencies" : "num",
+            "Rating Cycle 2 Number of Standard Health Deficiencies" : "num",
+            "Rating Cycle 2/3 Number of Complaint Health Deficiencies" : "num",
+            "Rating Cycle 2/3 Health Deficiency Score" : "num",
+            "Rating Cycle 2/3 Number of Health Revisits" : "num",
+            "Rating Cycle 2/3 Health Revisit Score" : "num",
+            "Rating Cycle 2/3 Total Health Score" : "num",
+            "Total Weighted Health Survey Score" : "num",
+            "Number of Facility Reported Incidents" : "num",
+            "Number of Substantiated Complaints" : "num",
+            "Number of Citations from Infection Control Inspections" : "num",
+            "Number of Fines" : "num",
+            "Total Amount of Fines in Dollars" : "num",
+            "Number of Payment Denials" : "num",
+            "Total Number of Penalties" : "num",
+            "Location" : "text",
+            "Latitude" : "lat",
+            "Longitude" : "long",
+            "Geocoding Footnote" : "text",
+            "Processing Date" : "date"
+        }    
+    },
+    "File Size" : "9 MB",
+    "@type": "dcat:Dataset",
+    "modified": "2025-09-01",
+    "released": "2025-09-24",
+    "issued" : "01/07/2025",
+    "identifier" :	"4pq5-n9py",
+    "contact" : "Nursing homes including rehab services",
+    "contactEmail": "BetterCare@cms.hhs.gov",
+    "accessLevel" :	"public",
+    "landingPage": "https://data.cms.gov/provider-data/dataset/4pq5-n9py",
+    "bureauCode": [
+          "009:38"
+        ],
+    "description": "General information on currently active nursing homes, including number of certified beds, quality measure scores, staffing and other information used in the Five-Star Rating System. Data are presented as one row per nursing home.",
+    "title": "Provider Information",
+    "programCode": [
+        "009:000"
+      ],
+    "publisher": {
+      "identifier": "4c1de1c4-f083-5877-8968-7ddc04756c49",
+      "data": {
+        "@type": "org:Organization",
+        "name": "Centers for Medicare & Medicaid Services (CMS)"
+      }
+  },
+    "API" : {
+        "Provider page" : "https://data.cms.gov/provider-data/dataset/4pq5-n9py#data-table",
+        "CSV Endpoint" : "https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items/4pq5-n9py/docs"
+    },
+  
+  "nextUpdateDate": "2025-10-29",
+  "keyword": [
+    {
+      "identifier": "d03021cc-311c-5181-8eb6-7ccf7e76fc53",
+      "data": "General Information"
+    },
+    {
+      "identifier": "203355e5-2454-505d-b356-08de15938ab9",
+      "data": "Address"
+    },
+    {
+      "identifier": "c59e48c7-3cc5-5a09-adec-a49493db72f6",
+      "data": "Location"
+    },
+    {
+      "identifier": "70a212e5-bf1b-5cad-9ecd-150dab2bacf9",
+      "data": "Ratings"
+    },
+    {
+      "identifier": "107b8826-e90b-5db3-ac30-ecdb99c73db6",
+      "data": "Beds"
+    },
+    {
+      "identifier": "5692b1a6-1c82-55c4-9698-c7441733b985",
+      "data": "Quality"
+    },
+    {
+      "identifier": "a6f7b7c6-d26e-5f59-8a5b-c151bacb9907",
+      "data": "Staffing"
+    },
+    {
+      "identifier": "35df7004-e437-5a8a-a96b-1bda5456ccca",
+      "data": "Penalties"
+    }
+  ],
+  "contactPoint": {
+    "@type": "vcard:Contact",
+    "fn": "Nursing homes including rehab services",
+    "hasEmail": "mailto:BetterCare@cms.hhs.gov"
+  },
+  "distribution": [
+    {
+      "identifier": "0ae91eb2-22da-5fe3-9dce-9811cdd6f1a8",
+      "data": {
+        "@type": "dcat:Distribution",
+        "downloadURL": "https://data.cms.gov/provider-data/sites/default/files/resources/e923f267504f72a3b10c2daa39efed8a_1757685912/NH_ProviderInfo_Sep2025.csv",
+        "mediaType": "text/csv",
+        "%Ref:downloadURL": [
+          {
+            "identifier": "e923f267504f72a3b10c2daa39efed8a__1757685912__source",
+            "data": {
+              "filePath": "s3://211125755750-pdc-prod-nh-data/NH_ProviderInfo_Sep2025.csv",
+              "identifier": "e923f267504f72a3b10c2daa39efed8a",
+              "mimeType": "text/csv",
+              "perspective": "source",
+              "version": "1757685912",
+              "checksum": null
+            }
+          },
+          {
+            "identifier": "e923f267504f72a3b10c2daa39efed8a__1757685912__local_url",
+            "data": {
+              "filePath": "https://h-o.st/provider-data/sites/default/files/resources/e923f267504f72a3b10c2daa39efed8a_1757685912/NH_ProviderInfo_Sep2025.csv",
+              "identifier": "e923f267504f72a3b10c2daa39efed8a",
+              "mimeType": "text/csv",
+              "perspective": "local_url",
+              "version": "1757685912",
+              "checksum": null
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "theme": [
+    {
+      "identifier": "fd81c516-c2be-5fc3-81f2-8232d8b2b07b",
+      "data": "Nursing homes including rehab services"
+    }
+  ]
+}

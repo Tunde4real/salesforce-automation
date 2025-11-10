@@ -1,0 +1,166 @@
+ {   "actions": [
+        {
+            "id": "78;a",
+            "state": "SUCCESS",
+            "returnValue": {
+                "returnValue": {
+                    "showEnforcements": true,
+                    "showInvestigations": true
+                },
+                "cacheable": true
+            },
+            "error": []
+        },
+        {
+            "id": "79;a",
+            "state": "SUCCESS",
+            "returnValue": {
+                "returnValue": {
+                    "address": "7550 North 16th Street, Phoenix, AZ 85020",
+                    "affiliation": "",
+                    "affiliationEndDate": "",
+                    "affiliationStartDate": "",
+                    "billingLatitude": "33.545777",
+                    "billingLongitude": "-112.052134",
+                    "bureau": "Long-Term Care",
+                    "ccn": "035003",
+                    "certificatePublicURL": "https://azdhs-licensing.my.salesforce.com/sfc/p/t0000000GzfY/a/cs00000anmtD/KwdDAGRh6TVySndvFkyZ9bRcz5wPlZDmvOt8fPq1JhQ",
+                    "chiefAdministrativeOfficer": "Mariele Soriano",
+                    "cultivationAddress": " ",
+                    "dba": "The Terraces Of Phoenix",
+                    "effectiveDate": "11/1/2025",
+                    "exempt": false,
+                    "expirationDate": "10/31/2026",
+                    "externalFacilitySearchId": "LTC0067",
+                    "facilityId": "0018y000008f8QqAAI",
+                    "facilityServices": [],
+                    "facilityStatus": "Active",
+                    "facilityType": "Nursing Care Institution",
+                    "hasRelatedFacilities": false,
+                    "isMothershipFacility": true,
+                    "legalName": "The Terraces Of Phoenix",
+                    "license": "NCI-232",
+                    "licenseOwner": "HUMANGOOD ARIZONA, INC",
+                    "licenses": [
+                        {
+                            "certificatePublicURL": "https://azdhs-licensing.my.salesforce.com/sfc/p/t0000000GzfY/a/cs00000anmtD/KwdDAGRh6TVySndvFkyZ9bRcz5wPlZDmvOt8fPq1JhQ",
+                            "effectiveDate": "11/1/2025",
+                            "expirationDate": "10/31/2026",
+                            "license": "NCI-232",
+                            "licenseStatus": "Active",
+                            "licenseType": "Nursing Care Institution",
+                            "services": ""
+                        }
+                    ],
+                    "licenseStatus": "Active",
+                    "mailingAddress": "7550 N 16th St, Phoenix, AZ 85020",
+                    "manufactureAddress": " ",
+                    "phone": "6029444455",
+                    "physicalCity": "Phoenix",
+                    "physicalState": "AZ",
+                    "physicalZip": "85020",
+                    "program": "Health Care",
+                    "qualityRating": "A",
+                    "shippingLatitude": "-112.049811972328",
+                    "subType": "DISTINCT PART",
+                    "totalCapacity": "64",
+                    "type": "Nursing Care Institution"
+                },
+                "cacheable": true
+            },
+            "error": []
+        }
+    ],
+    "context": {
+        "mode": "PROD",
+        "app": "siteforce:communityApp",
+        "contextPath": "/s/sfsites",
+        "pathPrefix": "",
+        "fwuid": "VFJhRGxfRlFsN29ySGg2SXFsaUZsQTFLcUUxeUY3ZVB6dE9hR0VheDVpb2cxMy4zMzU1NDQzMi4yNTE2NTgyNA",
+        "mlr": 1,
+        "uad": 1,
+        "coos": 1,
+        "lwrld": 1,
+        "loaded": {
+            "APPLICATION@markup://siteforce:communityApp": "1411_cmG25dptuXHlZVEVTc27wQ"
+        },
+        "globalValueProviders": [
+            {
+                "type": "$Global",
+                "values": {
+                    "eswConfigDeveloperName": {
+                        "writable": true,
+                        "defaultValue": ""
+                    },
+                    "isVoiceOver": {
+                        "writable": true,
+                        "defaultValue": false
+                    },
+                    "setupAppContextId": {
+                        "writable": true,
+                        "defaultValue": ""
+                    },
+                    "density": {
+                        "writable": true,
+                        "defaultValue": ""
+                    },
+                    "srcdoc": {
+                        "writable": false,
+                        "defaultValue": false
+                    },
+                    "appContextId": {
+                        "writable": true,
+                        "defaultValue": ""
+                    },
+                    "dynamicTypeSize": {
+                        "writable": true,
+                        "defaultValue": ""
+                    }
+                }
+            }
+        ],
+        "enableAccessChecks": true,
+        "apce": 1,
+        "dns": "c",
+        "ls": 1,
+        "lairn": [],
+        "laerc": [],
+        "lav": "65",
+        "lgef": [
+            "com.salesforce.locker.enableImmediateGlobalObjectPatching",
+            "com.salesforce.locker.enableTrustedTypesScript",
+            "com.salesforce.locker.changesSince.258",
+            "com.salesforce.locker.changesSince.256",
+            "com.salesforce.locker.enabledChangesSince.256",
+            "com.salesforce.locker.temporaryGate",
+            "com.salesforce.locker.enableSfdcLiveObject"
+        ],
+        "mna": {
+            "lightning": "interop"
+        },
+        "arse": 1,
+        "acaf": 1,
+        "services": [
+            "markup://lightning:configProvider",
+            "markup://force:salesforceScopedModuleResolver",
+            "markup://force:ldsEngineCreator",
+            "markup://instrumentation:locatorService"
+        ]
+    },
+    "perfSummary": {
+        "version": "core",
+        "request": 380,
+        "actions": {
+            "78;a": {
+                "total": 25,
+                "db": 4
+            },
+            "79;a": {
+                "total": 334,
+                "db": 181
+            }
+        },
+        "actionsTotal": 359,
+        "overhead": 0
+    }
+}
