@@ -99,8 +99,8 @@
             "Number of Payment Denials" : "num",
             "Total Number of Penalties" : "num",
             "Location" : "text",
-            "Latitude" : "lat",
-            "Longitude" : "long",
+            "Latitude" : "num",
+            "Longitude" : "num",
             "Geocoding Footnote" : "text",
             "Processing Date" : "date"
         }    
