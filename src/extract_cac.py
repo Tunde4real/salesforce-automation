@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 
 def extract_cac(provider_name:str):
-    """ Extract Cheif Administrator Contact of an health care facility, provided it's name.
+    """ Extracts Cheif Administrator Contact of an health care facility, provided it's name.
         This method uses the requests library to send a post requests. This post requests 
         requires a hidden user id available in the form data. A future update would be to use
         browser automation to automatically fetch the user id.

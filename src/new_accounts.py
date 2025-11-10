@@ -104,44 +104,48 @@ def main():
 
 
     """
-
-    # Configuration
+    
     load_dotenv()
     CONSUMER_KEY = os.getenv['CONSUMER_KEY']
     CONSUMER_SECRET = os.getenv['CONSUMER_SECRET']
-    DOMAIN = 'dwu00000ymz9b2af-dev-ed.develop.my'
+    DOMAIN = os.getenv('DOMAIN')
     
-    # Connect to Salesforce
-    sf = connect_to_salesforce(CONSUMER_KEY, CONSUMER_SECRET, DOMAIN)
+    try:
+        # Connect to Salesforce
+        sf = connect_to_salesforce(CONSUMER_KEY, CONSUMER_SECRET, DOMAIN)
 
-    #       Work with sql query endpoint. One state query works, many states query does not
-    # query = '[SELECT * FROM 0ae91eb2-22da-5fe3-9dce-9811cdd6f1a8][WHERE State IN ("AZ", "NV", "UT", "CO")][LIMIT 2]'
-    # query_one_state = '[SELECT * FROM 0ae91eb2-22da-5fe3-9dce-9811cdd6f1a8][WHERE State = "AZ"][LIMIT 10]'
-    # request_url = f'https://data.cms.gov/provider-data/api/1/datastore/sql?query={query_one_state}'
-    # response = requests.get(request_url, headers={'accept': 'application/json'})
-    # data = response.json()
+        #       Work with sql query endpoint. One state query works, many states query does not
+        # query = '[SELECT * FROM 0ae91eb2-22da-5fe3-9dce-9811cdd6f1a8][WHERE State IN ("AZ", "NV", "UT", "CO")][LIMIT 2]'
+        # query_one_state = '[SELECT * FROM 0ae91eb2-22da-5fe3-9dce-9811cdd6f1a8][WHERE State = "AZ"][LIMIT 10]'
+        # request_url = f'https://data.cms.gov/provider-data/api/1/datastore/sql?query={query_one_state}'
+        # response = requests.get(request_url, headers={'accept': 'application/json'})
+        # data = response.json()
 
-    df = pd.read_csv('https://data.cms.gov/provider-data/sites/default/files/resources/e923f267504f72a3b10c2daa39efed8a_1757685912/NH_ProviderInfo_Sep2025.csv')
-    df = df[df['State'].isin(['AZ', 'NV', 'UT', 'CO'])]
-    mapped_columns = {
-        'Provider Name': 'Name',
-        'Provider Address': 'BillingStreet',
-        'City/Town': 'BillingCity',
-        'State': 'BillingState',
-        'ZIP Code': 'BillingPostalCode',
-        'Telephone Number': 'Phone',
-        'Provider Type': 'Type',
-        'Ownership Type': 'Industry',
-    }
-    df_columns = df.columns
-    for column in df_columns:
-        if column == 'CMS Certification Number (CCN)':
-            mapped_columns[column] = 'CCN__c'
-        else:
-            mapped_columns[column] = f'{column}__c'
-        
-    df.rename(columns=mapped_columns, inplace=True)
-    add_accounts_from_dataframe(sf, df[:2])
+        df = pd.read_csv('https://data.cms.gov/provider-data/sites/default/files/resources/e923f267504f72a3b10c2daa39efed8a_1757685912/NH_ProviderInfo_Sep2025.csv')
+        df = df[df['State'].isin(['AZ', 'NV', 'UT', 'CO'])]
+        mapped_columns = {
+            'Provider Name': 'Name',
+            'Provider Address': 'BillingStreet',
+            'City/Town': 'BillingCity',
+            'State': 'BillingState',
+            'ZIP Code': 'BillingPostalCode',
+            'Telephone Number': 'Phone',
+            'Provider Type': 'Type',
+            'Ownership Type': 'Industry',
+        }
+        df_columns = df.columns
+        for column in df_columns:
+            if column == 'CMS Certification Number (CCN)':
+                mapped_columns[column] = 'CCN__c'
+            else:
+                mapped_columns[column] = f'{column}__c'
+            
+        df.rename(columns=mapped_columns, inplace=True)
+        add_accounts_from_dataframe(sf, df[:2])
+    
+    except Exception as e:
+        print(f"\n✗ Error: {str(e)}")
+        return None
 
 
 

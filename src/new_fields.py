@@ -1,15 +1,18 @@
-"""
-Programmatically create custom fields in Salesforce for Healthcare Facility data
-Using simple-salesforce-metadata2 library for easier implementation
+# import internal modules
+import os
+import time
+import json
 
-Installation:
-pip install simple-salesforce simple-salesforce-metadata2
-"""
 
+# import external libraries
+import pandas as pd
+from dotenv import load_dotenv
 from simple_salesforce import Salesforce
 from simple_salesforce.metadata import SfdcMetadataApi
-import time
 
+
+""" Programmatically create custom fields in Salesforce for Healthcare Facility data
+"""
 
 class SalesforceFieldManager:
     """Manage custom field creation using Metadata API
@@ -214,10 +217,10 @@ class SalesforceFieldManager:
         
         # Format picklist values
         formatted_values = []
-        for idx, value in enumerate(picklist_values):
+        for index, value in enumerate(picklist_values):
             formatted_values.append({
                 'fullName': value,
-                'default': idx == 0  # First value is default
+                'default': index == 0  # First value is default
             })
         
         field_metadata = {
@@ -359,200 +362,52 @@ def create_healthcare_fields(sf, delay=2):
     
     print("Creating Healthcare Facility Custom Fields on Account Object")
     
-    # Define all fields to create
-    fields_to_create = [
-        # Text Fields
-        ('text', {
-            'object_name': 'Account',
-            'field_name': 'CCN__c',
-            'label': 'CMS Certification Number',
-            'length': 50,
-            'unique': True,
-            'external_id': True,
-            'description': 'CMS Certification Number (CCN) - unique identifier'
-        }),
-        ('text', {
-            'object_name': 'Account',
-            'field_name': 'Legal_Business_Name__c',
-            'label': 'Legal Business Name',
-            'length': 255,
-            'description': 'Legal business name of the facility'
-        }),
-        ('text', {
-            'object_name': 'Account',
-            'field_name': 'SSA_County_Code__c',
-            'label': 'SSA County Code',
-            'length': 10,
-            'description': 'Provider SSA County Code'
-        }),
-        ('text', {
-            'object_name': 'Account',
-            'field_name': 'County__c',
-            'label': 'County',
-            'length': 100,
-            'description': 'County or Parish'
-        }),
-        ('text', {
-            'object_name': 'Account',
-            'field_name': 'Chain_Name__c',
-            'label': 'Chain Name',
-            'length': 255,
-            'description': 'Name of the healthcare chain'
-        }),
-        ('text', {
-            'object_name': 'Account',
-            'field_name': 'Chain_ID__c',
-            'label': 'Chain ID',
-            'length': 50,
-            'description': 'Chain identification number'
-        }),
-        ('text', {
-            'object_name': 'Account',
-            'field_name': 'Special_Focus_Status__c',
-            'label': 'Special Focus Status',
-            'length': 50,
-            'description': 'Special Focus Facility status'
-        }),
-        
-        # Number Fields
-        ('number', {
-            'object_name': 'Account',
-            'field_name': 'Certified_Beds__c',
-            'label': 'Number of Certified Beds',
-            'precision': 10,
-            'scale': 0,
-            'description': 'Number of certified beds in the facility'
-        }),
-        ('number', {
-            'object_name': 'Account',
-            'field_name': 'Avg_Residents_Per_Day__c',
-            'label': 'Average Residents Per Day',
-            'precision': 10,
-            'scale': 2,
-            'description': 'Average number of residents per day'
-        }),
-        ('number', {
-            'object_name': 'Account',
-            'field_name': 'Facilities_In_Chain__c',
-            'label': 'Facilities in Chain',
-            'precision': 10,
-            'scale': 0,
-            'description': 'Number of facilities in the chain'
-        }),
-        ('number', {
-            'object_name': 'Account',
-            'field_name': 'Overall_Rating__c',
-            'label': 'Overall Rating',
-            'precision': 3,
-            'scale': 1,
-            'description': 'Overall 5-star rating (0-5)'
-        }),
-        ('number', {
-            'object_name': 'Account',
-            'field_name': 'Health_Inspection_Rating__c',
-            'label': 'Health Inspection Rating',
-            'precision': 3,
-            'scale': 1,
-            'description': 'Health inspection rating (0-5)'
-        }),
-        ('number', {
-            'object_name': 'Account',
-            'field_name': 'QM_Rating__c',
-            'label': 'QM Rating',
-            'precision': 3,
-            'scale': 1,
-            'description': 'Quality Measures rating (0-5)'
-        }),
-        ('number', {
-            'object_name': 'Account',
-            'field_name': 'Staffing_Rating__c',
-            'label': 'Staffing Rating',
-            'precision': 3,
-            'scale': 1,
-            'description': 'Staffing rating (0-5)'
-        }),
-        ('number', {
-            'object_name': 'Account',
-            'field_name': 'Latitude__c',
-            'label': 'Latitude',
-            'precision': 10,
-            'scale': 7,
-            'description': 'Latitude coordinate'
-        }),
-        ('number', {
-            'object_name': 'Account',
-            'field_name': 'Longitude__c',
-            'label': 'Longitude',
-            'precision': 10,
-            'scale': 7,
-            'description': 'Longitude coordinate'
-        }),
-        
-        # Checkbox Fields
-        ('checkbox', {
-            'object_name': 'Account',
-            'field_name': 'Ownership_Changed_12Mo__c',
-            'label': 'Ownership Changed (12 Months)',
-            'default_value': False,
-            'description': 'Provider changed ownership in last 12 months'
-        }),
-        ('checkbox', {
-            'object_name': 'Account',
-            'field_name': 'Resides_In_Hospital__c',
-            'label': 'Resides in Hospital',
-            'default_value': False,
-            'description': 'Provider resides in hospital'
-        }),
-        ('checkbox', {
-            'object_name': 'Account',
-            'field_name': 'CCRC__c',
-            'label': 'Continuing Care Retirement Community',
-            'default_value': False,
-            'description': 'Is a Continuing Care Retirement Community'
-        }),
-        ('checkbox', {
-            'object_name': 'Account',
-            'field_name': 'Has_Resident_Family_Council__c',
-            'label': 'Has Resident Family Council',
-            'default_value': False,
-            'description': 'With a Resident and Family Council'
-        }),
-        ('checkbox', {
-            'object_name': 'Account',
-            'field_name': 'Has_Sprinkler_Systems__c',
-            'label': 'Has Sprinkler Systems',
-            'default_value': False,
-            'description': 'Automatic sprinkler systems in all required areas'
-        }),
-        
-        # Date Fields
-        ('date', {
-            'object_name': 'Account',
-            'field_name': 'Medicare_Medicaid_Approval_Date__c',
-            'label': 'Medicare/Medicaid Approval Date',
-            'description': 'Date first approved to provide Medicare and Medicaid services'
-        }),
-    ]
-    
+    fields_to_create = []
+    with open('data/metadata.json') as file:
+        metadata = json.loads(file.read())
+        fields_metadata = metadata['columns']['fields']
+        for field in fields_metadata:
+            field_type = fields_metadata[field]
+            if field == 'CMS Certification Number' :
+                fields_to_create += [
+                    (field_type,
+                    {
+                        'object_name': 'Account',
+                        'field_name': 'CCN__c',
+                        'label': 'CMS Certification Number',
+                        'length': 50,
+                        'unique': True,
+                        'external_id': True,
+                        'description': 'CMS Certification Number (CCN) - unique identifier'
+                    }
+                    )
+                ]
+            else:    
+                fields_to_create += [
+                    (field_type,
+                    {
+                        'object_name': 'Account',
+                        'field_name': f'{field}__c',
+                        'label': f'{field}'
+                    }
+                    )
+                ]
+
     total_fields = len(fields_to_create)
     
     # Create each field
-    for idx, (field_type, field_config) in enumerate(fields_to_create, 1):
-        print(f"[{idx}/{total_fields}] Creating {field_config['field_name']}...")
+    for index, (field_type, field_config) in enumerate(fields_to_create, 1):
+        print(f"[{index}/{total_fields}] Creating {field_config['field_name']}...")
         
         # Call appropriate method based on field type
         if field_type == 'text':
             result = field_manager.create_text_field(**field_config)
-        elif field_type == 'number':
+        elif field_type == 'num':
             result = field_manager.create_number_field(**field_config)
         elif field_type == 'checkbox':
             result = field_manager.create_checkbox_field(**field_config)
         elif field_type == 'date':
             result = field_manager.create_date_field(**field_config)
-        elif field_type == 'picklist':
-            result = field_manager.create_picklist_field(**field_config)
-        elif field_type == 'currency':
-            result = field_manager.create_currency_field(**field_config)
         else:
             result = {'success': False, 'error': 'Unknown field type'}
         
@@ -568,7 +423,7 @@ def create_healthcare_fields(sf, delay=2):
             })
         
         # Delay between field creations
-        if idx < total_fields:
+        if index < total_fields:
             time.sleep(delay)
     
     # Print summary
@@ -605,10 +460,10 @@ def main():
     print("Healthcare Facility Custom Field Creator")
     print("Using simple-salesforce-metadata2\n")
     
-    # Salesforce connection details
-    CONSUMER_KEY = 'your_consumer_key_here'
-    CONSUMER_SECRET = 'your_consumer_secret_here'
-    DOMAIN = 'dwu00000ymz9b2af-dev-ed.develop.my'
+    load_dotenv()
+    CONSUMER_KEY = os.getenv['CONSUMER_KEY']
+    CONSUMER_SECRET = os.getenv['CONSUMER_SECRET']
+    DOMAIN = os.getenv('DOMAIN')
     
     try:
         # Connect to Salesforce
