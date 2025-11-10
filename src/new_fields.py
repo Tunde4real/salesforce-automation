@@ -5,7 +5,6 @@ import json
 
 
 # import external libraries
-import pandas as pd
 from dotenv import load_dotenv
 from simple_salesforce import Salesforce
 from simple_salesforce.metadata import SfdcMetadataApi
@@ -426,30 +425,9 @@ def create_healthcare_fields(sf, delay=2):
         if index < total_fields:
             time.sleep(delay)
     
-    # Print summary
-    print(f"\n{'='*70}")
-    print("Field Creation Summary")
-    print(f"{'='*70}")
-    print(f"Successfully created: {len(results['created'])}")
-    print(f"Already existed (skipped): {len(results['skipped'])}")
-    print(f"Failed: {len(results['failed'])}")
-    
-    if results['created']:
-        print("\nCreated fields:")
-        for field in results['created']:
-            print(f"  ✓ {field}")
-    
-    if results['skipped']:
-        print("\nSkipped (already exist):")
-        for field in results['skipped']:
-            print(f"  ⊗ {field}")
-    
-    if results['failed']:
-        print("\nFailed fields:")
-        for failed in results['failed']:
-            print(f"  ✗ {failed['field']}: {failed['error']}")
-    
-    print(f"{'='*70}\n")
+    print(f"Successfully created {len(results['created'])} fields : {results['created']} ")
+    print(f"{len(results['skipped'])} fields already existed and hence skipped : {results['skipped']}")
+    print(f"{len(results['failed'])} fields failed: {results['failed']}")
     
     return results
 
