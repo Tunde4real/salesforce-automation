@@ -103,7 +103,7 @@
             "Longitude" : "num",
             "Geocoding Footnote" : "text",
             "Processing Date" : "date"
-        }    
+        }
     },
     "File Size" : "9 MB",
     "@type": "dcat:Dataset",

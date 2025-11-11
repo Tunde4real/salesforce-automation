@@ -106,8 +106,8 @@ def main():
     """
     
     load_dotenv()
-    CONSUMER_KEY = os.getenv['CONSUMER_KEY']
-    CONSUMER_SECRET = os.getenv['CONSUMER_SECRET']
+    CONSUMER_KEY = os.getenv('CONSUMER_KEY')
+    CONSUMER_SECRET = os.getenv('CONSUMER_SECRET')
     DOMAIN = os.getenv('DOMAIN')
     
     try:
@@ -124,6 +124,7 @@ def main():
         df = pd.read_csv('https://data.cms.gov/provider-data/sites/default/files/resources/e923f267504f72a3b10c2daa39efed8a_1757685912/NH_ProviderInfo_Sep2025.csv')
         df = df[df['State'].isin(['AZ', 'NV', 'UT', 'CO'])]
         mapped_columns = {
+            # salesforce inbuilt fields
             'Provider Name': 'Name',
             'Provider Address': 'BillingStreet',
             'City/Town': 'BillingCity',
@@ -134,9 +135,12 @@ def main():
             'Ownership Type': 'Industry',
         }
         df_columns = df.columns
+
         for column in df_columns:
             if column == 'CMS Certification Number (CCN)':
                 mapped_columns[column] = 'CCN__c'
+            elif column == 'County/Parish':
+                mapped_columns[column] = 'County__c'
             else:
                 mapped_columns[column] = f'{column}__c'
             
