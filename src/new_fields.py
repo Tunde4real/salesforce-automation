@@ -72,7 +72,9 @@ class SalesforceFieldManager:
             length = length,
             required = required,
             unique = unique,
-            externalId = external_id
+            externalId = external_id,
+            deploymentStatus = self.mdapi.DeploymentStatus("Deployed"),
+            sharingModel = self.mdapi.SharingModel("Read")
         )
         
         if description:
@@ -105,7 +107,9 @@ class SalesforceFieldManager:
             type = self.mdapi.FieldType("Number"),
             required = required,
             precision = precision,
-            scale = scale
+            scale = scale,
+            deploymentStatus = self.mdapi.DeploymentStatus("Deployed"),
+            sharingModel = self.mdapi.SharingModel("Read")
         )
         
         if description:
@@ -136,7 +140,9 @@ class SalesforceFieldManager:
             label = label,
             type = self.mdapi.FieldType("Checkbox"),
             required = required,
-            defaultValue = default_value
+            defaultValue = default_value,
+            deploymentStatus = self.mdapi.DeploymentStatus("Deployed"),
+            sharingModel = self.mdapi.SharingModel("Read")
         )
         
         if description:
@@ -166,6 +172,8 @@ class SalesforceFieldManager:
             label = label,
             type = self.mdapi.FieldType("Date"),
             required = required,
+            deploymentStatus = self.mdapi.DeploymentStatus("Deployed"),
+            sharingModel = self.mdapi.SharingModel("Read")
         )
         
         if description:
