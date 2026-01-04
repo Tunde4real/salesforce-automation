@@ -4,6 +4,7 @@ import time
 import json
 import re
 import traceback
+import requests
 
 
 # import external libraries
@@ -14,6 +15,10 @@ from simple_salesforce.metadata import SfdcMetadataApi
 
 """ Programmatically create custom fields in Salesforce for Healthcare Facility data
 """
+
+
+DEFAULT_API_VERSION = '59.0'
+LATEST_API_VERSION = '65.0'
 
 class SalesforceFieldManager:
     """Manage custom field creation using Metadata API
@@ -27,12 +32,13 @@ class SalesforceFieldManager:
             sf: simple_salesforce.Salesforce instance
         """
         self.sf = sf
+        self.instance = str(sf.sf_instance)
         self.mdapi = sf.mdapi
         print("✓ Metadata API initialized\n")
     
     def check_field_exists(self, object_name, field_name):
         """
-        Check if a custom field already exists.
+        Checks if a custom field already exists.
         For some reasons, new fields created are not being returned as of now.
         
         Args:
@@ -55,7 +61,7 @@ class SalesforceFieldManager:
     def create_text_field(self, object_name, field_name, label, length=255, 
                          required=False, unique=False, external_id=False, 
                          description=None):
-        """Create a text custom field
+        """Creates a text custom field
         """
         
         full_name = f"{object_name}.{field_name}"
@@ -73,25 +79,27 @@ class SalesforceFieldManager:
             required = required,
             unique = unique,
             externalId = external_id,
-            deploymentStatus = self.mdapi.DeploymentStatus("Deployed"),
-            sharingModel = self.mdapi.SharingModel("Read")
+            # deploymentStatus = self.mdapi.DeploymentStatus("Deployed")
         )
         
         if description:
             custom_field['description'] = description
         
         try:
+            # self.mdapi.CustomField.delete(full_name)
             self.mdapi.CustomField.create(custom_field)
+            # self.deploy(object_name, field_name)
             print(f"  ✓ Created text field: {field_name}")
             return {'success': True, 'field': field_name}   
           
         except Exception as e:
+            print(traceback.print_exc())
             print(f"  ✗ Exception creating {field_name}: {str(e)}")
             return {'success': False, 'field': field_name, 'error': str(e)}
     
     def create_number_field(self, object_name, field_name, label, precision=18, 
                            scale=10, required=False, description=None):
-        """Create a number custom field
+        """Creates a number custom field
             Precision represents the number of digits to the left of the decimal point.
         """
         
@@ -108,8 +116,6 @@ class SalesforceFieldManager:
             required = required,
             precision = precision,
             scale = scale,
-            deploymentStatus = self.mdapi.DeploymentStatus("Deployed"),
-            sharingModel = self.mdapi.SharingModel("Read")
         )
         
         if description:
@@ -117,6 +123,7 @@ class SalesforceFieldManager:
             custom_field['description'] = description
         
         try:
+            # self.mdapi.CustomField.delete(full_name)
             self.mdapi.CustomField.create(custom_field)
             print(f"  ✓ Created text field: {field_name}")
             return {'success': True, 'field': field_name}  
@@ -127,7 +134,7 @@ class SalesforceFieldManager:
     
     def create_checkbox_field(self, object_name, field_name, label, 
                              default_value=False, required=False, description=None):
-        """Create a checkbox custom field"""
+        """Creates a checkbox custom field"""
         
         full_name = f"{object_name}.{field_name}"
         
@@ -141,14 +148,14 @@ class SalesforceFieldManager:
             type = self.mdapi.FieldType("Checkbox"),
             required = required,
             defaultValue = default_value,
-            deploymentStatus = self.mdapi.DeploymentStatus("Deployed"),
-            sharingModel = self.mdapi.SharingModel("Read")
+            # businessStatus="Active"
         )
         
         if description:
             custom_field['description'] = description
         
         try:
+            # self.mdapi.CustomField.delete(full_name)
             self.mdapi.CustomField.create(custom_field)
             print(f"  ✓ Created text field: {field_name}")
             return {'success': True, 'field': field_name}  
@@ -159,7 +166,7 @@ class SalesforceFieldManager:
     
     def create_date_field(self, object_name, field_name, label, 
                          required=False, description=None):
-        """Create a date custom field"""
+        """Creates a date custom field"""
         
         full_name = f"{object_name}.{field_name}"
         
@@ -172,14 +179,14 @@ class SalesforceFieldManager:
             label = label,
             type = self.mdapi.FieldType("Date"),
             required = required,
-            deploymentStatus = self.mdapi.DeploymentStatus("Deployed"),
-            sharingModel = self.mdapi.SharingModel("Read")
+            # deploymentStatus = self.mdapi.DeploymentStatus("Deployed")
         )
         
         if description:
             custom_field['description'] = description
         
         try:
+            # self.mdapi.CustomField.delete(full_name)
             self.mdapi.CustomField.create(custom_field)
             print(f"  ✓ Created text field: {field_name}")
             return {'success': True, 'field': field_name}   
@@ -272,6 +279,42 @@ class SalesforceFieldManager:
     #         print(f"  ✗ Exception creating {field_name}: {str(e)}")
     #         return {'success': False, 'field': field_name, 'error': str(e)}
 
+    def deploy(self, object_name, field_name):
+        """ Deploy field and set permissions using Metadata API. This method is not working yet
+        """
+        soap_url = f"https://{self.instance}/services/Soap/m/59.0"
+        
+        # Update field to be readable/editable
+        soap_body = f"""
+            <?xml version="1.0" encoding="UTF-8"?>
+                <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
+                    <fieldPermissions>
+                        <field>{object_name}.{field_name}</field>
+                        <allowEdit>true</allowEdit>
+                        <allowRead>true</allowRead>
+                    </fieldPermissions>
+                </Profile>
+        """
+        # soap_body = f"""
+        #     <?xml version="1.0" encoding="UTF-8"?>
+        #         <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+                    
+        #         </Package>
+        # """
+        headers = {
+            'Content-Type': 'text/xml; charset=UTF-8',
+            'SOAPAction': 'update'
+        }
+        
+        response = requests.post(soap_url, data=soap_body, headers=headers)
+        
+        if 'true</success>' in response.text:
+            print(f"✓ Field {field_name} updated successfully")
+            return True
+        else:
+            print(f"✗ Failed to update field: {response.text}")
+            return False
+
 
 def create_healthcare_fields(sf, delay=2):
     """
@@ -328,6 +371,7 @@ def create_healthcare_fields(sf, delay=2):
                     }
                     )
                 ]
+                
             elif field == 'County/Parish':
                 fields_to_create += [
                     (field_type,{
@@ -365,7 +409,6 @@ def create_healthcare_fields(sf, delay=2):
                     }
                     )
                 ]
-                
 
     total_fields = len(fields_to_create)
     
@@ -424,9 +467,11 @@ def main():
         sf = Salesforce(
             consumer_key=CONSUMER_KEY,
             consumer_secret=CONSUMER_SECRET,
-            domain=DOMAIN
+            domain=DOMAIN,
+            version=LATEST_API_VERSION
         )
-        sf.mdapi
+        sf.toolingexecute
+        
         print("✓ Connected successfully\n")
         
         
